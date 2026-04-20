@@ -47,6 +47,10 @@ data:
   APP_API_URL: ''
   APP_WEB_URL: ''
   FILES_URL: ''
+  INTERNAL_FILES_URL: ''
+  LANG: 'en_US.UTF-8'
+  LC_ALL: 'en_US.UTF-8'
+  PYTHONIOENCODING: 'utf-8'
   LOG_LEVEL: INFO
   LOG_FILE: /app/logs/server.log
   LOG_FILE_MAX_SIZE: '20'
@@ -55,12 +59,13 @@ data:
   LOG_TZ: UTC
   DEBUG: 'false'
   FLASK_DEBUG: 'false'
-  SECRET_KEY: sk-9f73s3ljTXVcMT3Blb3ljTqtsKiGHXVcMT3BlbkFJLK7U
+  ENABLE_REQUEST_LOGGING: 'False'
+  SECRET_KEY: sk-xxxxxx
   INIT_PASSWORD: password
   DEPLOY_ENV: PRODUCTION
   CHECK_UPDATE_URL: https://updates.dify.ai
   OPENAI_API_BASE: https://api.openai.com/v1
-  MIGRATION_ENABLED: 'false'
+  MIGRATION_ENABLED: 'true'
   FILES_ACCESS_TIMEOUT: '300'
   ACCESS_TOKEN_EXPIRE_MINUTES: '60'
   REFRESH_TOKEN_EXPIRE_DAYS: '30'
@@ -90,6 +95,8 @@ data:
   SQLALCHEMY_POOL_SIZE: '30'
   SQLALCHEMY_POOL_RECYCLE: '3600'
   SQLALCHEMY_ECHO: 'false'
+  SQLALCHEMY_POOL_PRE_PING: 'false'
+  SQLALCHEMY_POOL_USE_LIFO: 'false'
   POSTGRES_MAX_CONNECTIONS: '100'
   POSTGRES_SHARED_BUFFERS: 128MB
   POSTGRES_WORK_MEM: 4MB
@@ -121,6 +128,10 @@ data:
   # STORAGE_TYPE: s3
   OPENDAL_SCHEME: fs
   OPENDAL_FS_ROOT: storage
+  # CLICKZETTA_VOLUME_TYPE: 'user'
+  # CLICKZETTA_VOLUME_NAME: ''
+  # CLICKZETTA_VOLUME_TABLE_PREFIX: 'dataset_'
+  # CLICKZETTA_VOLUME_DIFY_PREFIX: 'dify_km'
   # S3_ENDPOINT: ''
   # S3_REGION: ''
   # S3_BUCKET_NAME: ''
@@ -167,6 +178,7 @@ data:
   # SUPABASE_API_KEY: ${SUPABASE_API_KEY:-your-access-key}
   # SUPABASE_URL: ${SUPABASE_URL:-your-server-url}
   VECTOR_STORE: weaviate
+  VECTOR_INDEX_NAME_PREFIX: 'Vector_index'
   WEAVIATE_ENDPOINT: 'http://dify-weaviate:8080'
   WEAVIATE_API_KEY: WVF5YThaHlkYwhGUSmCRgsX3tD5ngdN8pkih
   # QDRANT_URL: ${QDRANT_URL:-http://qdrant:6333}
@@ -309,6 +321,18 @@ data:
   # TABLESTORE_INSTANCE_NAME: ${TABLESTORE_INSTANCE_NAME:-instance-name}
   # TABLESTORE_ACCESS_KEY_ID: ${TABLESTORE_ACCESS_KEY_ID:-xxx}
   # TABLESTORE_ACCESS_KEY_SECRET: ${TABLESTORE_ACCESS_KEY_SECRET:-xxx}
+  # CLICKZETTA_USERNAME: ${CLICKZETTA_USERNAME:-}
+  # CLICKZETTA_PASSWORD: ${CLICKZETTA_PASSWORD:-}
+  # CLICKZETTA_INSTANCE: ${CLICKZETTA_INSTANCE:-}
+  # CLICKZETTA_SERVICE: ${CLICKZETTA_SERVICE:-api.clickzetta.com}
+  # CLICKZETTA_WORKSPACE: ${CLICKZETTA_WORKSPACE:-quick_start}
+  # CLICKZETTA_VCLUSTER: ${CLICKZETTA_VCLUSTER:-default_ap}
+  # CLICKZETTA_SCHEMA: ${CLICKZETTA_SCHEMA:-dify}
+  # CLICKZETTA_BATCH_SIZE: ${CLICKZETTA_BATCH_SIZE:-100}
+  # CLICKZETTA_ENABLE_INVERTED_INDEX: ${CLICKZETTA_ENABLE_INVERTED_INDEX:-true}
+  # CLICKZETTA_ANALYZER_TYPE: ${CLICKZETTA_ANALYZER_TYPE:-chinese}
+  # CLICKZETTA_ANALYZER_MODE: ${CLICKZETTA_ANALYZER_MODE:-smart}
+  # CLICKZETTA_VECTOR_DISTANCE_FUNCTION: ${CLICKZETTA_VECTOR_DISTANCE_FUNCTION:-cosine_distance}
   UPLOAD_FILE_SIZE_LIMIT: '15'
   UPLOAD_FILE_BATCH_LIMIT: '5'
   ETL_TYPE: dify
@@ -373,6 +397,7 @@ data:
   MAX_TOOLS_NUM: '10'
   MAX_PARALLEL_LIMIT: '10'
   MAX_ITERATIONS_NUM: '5'
+  MAX_TREE_DEPTH: '50'
   TEXT_GENERATION_TIMEOUT_MS: '60000'
   PGUSER: postgres
   POSTGRES_PASSWORD: difyai123456
@@ -473,7 +498,7 @@ data:
   PLUGIN_DIFY_INNER_API_URL: http://dify-api:5001
   ENDPOINT_URL_TEMPLATE: 'http://localhost/e/{hook_id}'
   MARKETPLACE_ENABLED: 'true'
-  MARKETPLACE_API_URL: https://marketplace.dify.ai
+  MARKETPLACE_API_URL: 'https://marketplace.dify.ai'
   FORCE_VERIFYING_SIGNATURE: 'true'
   PLUGIN_PYTHON_ENV_INIT_TIMEOUT: '120'
   PLUGIN_MAX_EXECUTION_TIMEOUT: '600'
@@ -507,6 +532,18 @@ data:
   # OTEL_METRIC_EXPORT_INTERVAL: ${OTEL_METRIC_EXPORT_INTERVAL:-60000}
   # OTEL_BATCH_EXPORT_TIMEOUT: ${OTEL_BATCH_EXPORT_TIMEOUT:-10000}
   # OTEL_METRIC_EXPORT_TIMEOUT: ${OTEL_METRIC_EXPORT_TIMEOUT:-30000}
+  # ALLOW_EMBED: ${ALLOW_EMBED:-false}
+  # QUEUE_MONITOR_THRESHOLD: ${QUEUE_MONITOR_THRESHOLD:-200}
+  # QUEUE_MONITOR_ALERT_EMAILS: ${QUEUE_MONITOR_ALERT_EMAILS:-}
+  # QUEUE_MONITOR_INTERVAL: ${QUEUE_MONITOR_INTERVAL:-30}
+  # ENABLE_CLEAN_EMBEDDING_CACHE_TASK: ${ENABLE_CLEAN_EMBEDDING_CACHE_TASK:-false}
+  # ENABLE_CLEAN_UNUSED_DATASETS_TASK: ${ENABLE_CLEAN_UNUSED_DATASETS_TASK:-false}
+  # ENABLE_CREATE_TIDB_SERVERLESS_TASK: ${ENABLE_CREATE_TIDB_SERVERLESS_TASK:-false}
+  # ENABLE_UPDATE_TIDB_SERVERLESS_STATUS_TASK: ${ENABLE_UPDATE_TIDB_SERVERLESS_STATUS_TASK:-false}
+  # ENABLE_CLEAN_MESSAGES: ${ENABLE_CLEAN_MESSAGES:-false}
+  # ENABLE_MAIL_CLEAN_DOCUMENT_NOTIFY_TASK: ${ENABLE_MAIL_CLEAN_DOCUMENT_NOTIFY_TASK:-false}
+  # ENABLE_DATASETS_QUEUE_MONITOR: ${ENABLE_DATASETS_QUEUE_MONITOR:-false}
+  # ENABLE_CHECK_UPGRADABLE_PLUGIN_TASK: ${ENABLE_CHECK_UPGRADABLE_PLUGIN_TASK:-true}
 
   # Dify Credentials
   # apiVersion: v1
@@ -873,7 +910,7 @@ spec:
       serviceAccountName: dify-weaviate
       containers:
       - name: dify-weaviate
-        image: semitechnologies/weaviate:1.19.0
+        image: semitechnologies/weaviate:1.27.0
         ports:
         - containerPort: 8080
           name: weaviate-p
@@ -1039,7 +1076,7 @@ spec:
         kubernetes.io/os: linux
       containers:
       - name: dify-sandbox
-        image: langgenius/dify-sandbox:0.2.12
+        image: langgenius/dify-sandbox:0.2.14
         env:
         - name: API_KEY
           # value: "dify-sandbox"
@@ -1384,9 +1421,27 @@ spec:
       serviceAccountName: dify-api
       nodeSelector:
         kubernetes.io/os: linux
+      initContainers:
+      - name: init-permissions
+        image: busybox:latest
+        command:
+        - sh
+        - -c
+        - |
+          FLAG_FILE="/app/api/storage/.init_permissions"
+          if [ -f "$FLAG_FILE" ]; then
+            echo "Permissions already initialized. Exiting."
+            exit 0
+          fi
+          echo "Initializing permissions for /app/api/storage"
+          chown -R 1001:1001 /app/api/storage && touch "$FLAG_FILE"
+          echo "Permissions initialized. Exiting."
+        volumeMounts:
+        - name: dify-api-storage
+          mountPath: /app/api/storage    
       containers:
       - name: dify-api
-        image: langgenius/dify-api:1.4.0
+        image: langgenius/dify-api:1.13.3
         envFrom:
         - configMapRef:
             name: dify-shared-config
@@ -1509,9 +1564,27 @@ spec:
       serviceAccountName: dify-worker
       nodeSelector:
         kubernetes.io/os: linux
+      initContainers:
+      - name: init-permissions
+        image: busybox:latest
+        command:
+        - sh
+        - -c
+        - |
+          FLAG_FILE="/app/api/storage/.init_permissions"
+          if [ -f "$FLAG_FILE" ]; then
+            echo "Permissions already initialized. Exiting."
+            exit 0
+          fi
+          echo "Initializing permissions for /app/api/storage"
+          chown -R 1001:1001 /app/api/storage && touch "$FLAG_FILE"
+          echo "Permissions initialized. Exiting."
+        volumeMounts:
+        - name: dify-api-storage
+          mountPath: /app/api/storage
       containers:
       - name: dify-worker
-        image: langgenius/dify-api:1.4.0
+        image: langgenius/dify-api:1.13.3
         ports:
         - containerPort: 5001
           protocol: TCP
@@ -1602,6 +1675,103 @@ spec:
 
 # Dify Worker Server End
 ---
+# Dify Worker Beat Server Start
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  labels:
+    app.kubernetes.io/instance: dify-worker-beat
+  name: dify-worker-beat
+  namespace: dify
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: dify-worker-beat
+  labels:
+    app.kubernetes.io/instance: dify-worker-beat
+    app: dify-worker-beat
+  namespace: dify
+spec:
+  replicas: 1
+  revisionHistoryLimit: 1
+  minReadySeconds: 10
+  serviceName: dify-worker-beat
+  selector:
+    matchLabels:
+      app: dify-worker-beat
+  template:
+    metadata:
+      labels:
+        app: dify-worker-beat
+    spec:
+      serviceAccountName: dify-worker-beat  
+      nodeSelector:
+        kubernetes.io/os: linux
+      initContainers:
+      - name: init-permissions
+        image: busybox:latest
+        command:
+        - sh
+        - -c
+        - |
+          FLAG_FILE="/app/api/storage/.init_permissions"
+          if [ -f "$FLAG_FILE" ]; then
+            echo "Permissions already initialized. Exiting."
+            exit 0
+          fi
+          echo "Initializing permissions for /app/api/storage"
+          chown -R 1001:1001 /app/api/storage && touch "$FLAG_FILE"
+          echo "Permissions initialized. Exiting."
+        volumeMounts:
+        - name: dify-api-storage
+          mountPath: /app/api/storage 
+      containers:
+      - name: dify-worker-beat
+        image: langgenius/dify-api:1.13.3
+        envFrom:
+        - configMapRef:
+            name: dify-shared-config
+        env:
+        - name: MODE
+          value: beat
+
+        resources:
+          requests:
+            cpu: 200m
+            memory: 256Mi
+          limits:
+            cpu: 1000m
+            memory: 2Gi
+        ports:
+        - containerPort: 5001
+        imagePullPolicy: IfNotPresent
+  volumeClaimTemplates: 
+    - metadata:
+        name: dify-api-storage
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 100Gi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: dify-worker-beat
+  namespace: dify
+spec:
+  ports:
+  - protocol: TCP
+    port: 5001
+    targetPort: 5001
+  selector:
+    app: dify-worker-beat
+  type: ClusterIP
+
+# Dify Worker Beat Server End
+---
 # Dify Web Server Start
 apiVersion: v1
 kind: ServiceAccount
@@ -1635,7 +1805,7 @@ spec:
       automountServiceAccountToken: false
       containers:
       - name: dify-web
-        image: langgenius/dify-web:1.4.0
+        image: langgenius/dify-web:1.13.3
         env:
         - name: EDITION
           value: SELF_HOSTED
@@ -1720,6 +1890,12 @@ spec:
             configMapKeyRef:
               name: dify-shared-config
               key: MAX_ITERATIONS_NUM
+        - name: 'MAX_TREE_DEPTH'
+          # value: '5'
+          valueFrom:
+            configMapKeyRef:
+              name: dify-shared-config
+              key: MAX_TREE_DEPTH
         - name: 'ENABLE_WEBSITE_JINAREADER'
           # value: 'true'
           valueFrom:
@@ -2045,7 +2221,7 @@ spec:
         command: [ 'sh', '-c', 'until pg_isready -h dify-postgres -U postgres -d dify; do echo waiting for postgres; sleep 2; done;' ]
       containers:
       - name: dify-plugin-daemon
-        image: langgenius/dify-plugin-daemon:0.1.0-local
+        image: langgenius/dify-plugin-daemon:0.5.3-local
         resources:
           limits:
             memory: "1024Mi"
